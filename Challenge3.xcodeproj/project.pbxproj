@@ -13,6 +13,7 @@
 		3B6850C7289F4A1300E3FFD7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B6850C5289F4A1300E3FFD7 /* Main.storyboard */; };
 		3B6850C9289F4A1400E3FFD7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B6850C8289F4A1400E3FFD7 /* Assets.xcassets */; };
 		3B6850CC289F4A1400E3FFD7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B6850CA289F4A1400E3FFD7 /* LaunchScreen.storyboard */; };
+		3BDCD79828A0A373000CA58E /* AlphabetArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDCD79728A0A373000CA58E /* AlphabetArray.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		3B6850C8289F4A1400E3FFD7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3B6850CB289F4A1400E3FFD7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3B6850CD289F4A1400E3FFD7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3BDCD79728A0A373000CA58E /* AlphabetArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphabetArray.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				3B6850BF289F4A1300E3FFD7 /* AppDelegate.swift */,
 				3B6850C1289F4A1300E3FFD7 /* SceneDelegate.swift */,
 				3B6850C3289F4A1300E3FFD7 /* ViewController.swift */,
+				3BDCD79728A0A373000CA58E /* AlphabetArray.swift */,
 				3B6850C5289F4A1300E3FFD7 /* Main.storyboard */,
 				3B6850C8289F4A1400E3FFD7 /* Assets.xcassets */,
 				3B6850CA289F4A1400E3FFD7 /* LaunchScreen.storyboard */,
@@ -140,6 +143,7 @@
 			files = (
 				3B6850C4289F4A1300E3FFD7 /* ViewController.swift in Sources */,
 				3B6850C0289F4A1300E3FFD7 /* AppDelegate.swift in Sources */,
+				3BDCD79828A0A373000CA58E /* AlphabetArray.swift in Sources */,
 				3B6850C2289F4A1300E3FFD7 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
