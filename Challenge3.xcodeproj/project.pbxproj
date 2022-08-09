@@ -13,6 +13,7 @@
 		3B6850C7289F4A1300E3FFD7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B6850C5289F4A1300E3FFD7 /* Main.storyboard */; };
 		3B6850C9289F4A1400E3FFD7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B6850C8289F4A1400E3FFD7 /* Assets.xcassets */; };
 		3B6850CC289F4A1400E3FFD7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B6850CA289F4A1400E3FFD7 /* LaunchScreen.storyboard */; };
+		3B7BC14B28A1DD1100824F3C /* levels.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B7BC14A28A1DD1100824F3C /* levels.txt */; };
 		3BDCD79828A0A373000CA58E /* AlphabetArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDCD79728A0A373000CA58E /* AlphabetArray.swift */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +26,7 @@
 		3B6850C8289F4A1400E3FFD7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3B6850CB289F4A1400E3FFD7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3B6850CD289F4A1400E3FFD7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B7BC14A28A1DD1100824F3C /* levels.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = levels.txt; sourceTree = "<group>"; };
 		3BDCD79728A0A373000CA58E /* AlphabetArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphabetArray.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -66,6 +68,7 @@
 				3B6850C8289F4A1400E3FFD7 /* Assets.xcassets */,
 				3B6850CA289F4A1400E3FFD7 /* LaunchScreen.storyboard */,
 				3B6850CD289F4A1400E3FFD7 /* Info.plist */,
+				3B7BC14A28A1DD1100824F3C /* levels.txt */,
 			);
 			path = Challenge3;
 			sourceTree = "<group>";
@@ -129,6 +132,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B6850CC289F4A1400E3FFD7 /* LaunchScreen.storyboard in Resources */,
+				3B7BC14B28A1DD1100824F3C /* levels.txt in Resources */,
 				3B6850C9289F4A1400E3FFD7 /* Assets.xcassets in Resources */,
 				3B6850C7289F4A1300E3FFD7 /* Main.storyboard in Resources */,
 			);

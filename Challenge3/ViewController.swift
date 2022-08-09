@@ -9,7 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
     var remainingTriesLabel: UILabel!
-    var word: UITextField!
+    var word: UILabel!
     var letterButtons = [UIButton]()
     var activatedButtons = [UIButton]()
     
@@ -23,12 +23,10 @@ class ViewController: UIViewController {
         remainingTriesLabel.text = "Remaining Tries: 7"
         view.addSubview(remainingTriesLabel)
         
-        word = UITextField()
+        word = UILabel()
         word.translatesAutoresizingMaskIntoConstraints = false
         word.textAlignment = .center
-        word.placeholder = "Word appears here"
         word.font = UIFont.systemFont(ofSize: 30)
-        word.isUserInteractionEnabled = false
         view.addSubview(word)
         
         let buttonsView = UIView()
@@ -74,7 +72,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        loadLevel()
     }
 
     @objc func letterTapped(_ sender: UIButton) {
@@ -86,5 +85,31 @@ class ViewController: UIViewController {
         sender.isHidden = true
     }
 
+    func loadLevel() {
+        var wordsArray = [String]()
+        
+        let file = "levels"
+        DispatchQueue.global().async {
+            if let filepath = Bundle.main.path(forResource: file, ofType: "txt") {
+                do {
+                    let contents = try String(contentsOfFile: filepath)
+                    var words = contents.components(separatedBy: "|")
+                    words.shuffle()
+                    wordsArray = words
+                } catch {
+                    print("error with contents")
+                }
+            } else {
+                print("no path")
+            }
+        }
+        
+        DispatchQueue.main.async { [weak self] in
+            let chosenWord = wordsArray[0].trimmingCharacters(in: .whitespacesAndNewlines)
+            print(chosenWord)
+            let hiddenString = String(chosenWord.map { _ in Character("?")})
+            self?.word.text = hiddenString
+        }
+    }
 }
 
