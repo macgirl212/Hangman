@@ -13,6 +13,16 @@ class ViewController: UIViewController {
     var letterButtons = [UIButton]()
     var activatedButtons = [UIButton]()
     
+    var wordsArray = [String]()
+    var currentWord = ""
+    var calledLetters = [String]()
+    var levelIndex = 0
+    var incorrectGuesses = 7 {
+        didSet {
+            remainingTriesLabel.text = "Remaining Tries: \(incorrectGuesses)"
+        }
+    }
+    
     override func loadView() {
         view = UIView()
         view.backgroundColor = .lightGray
@@ -21,12 +31,13 @@ class ViewController: UIViewController {
         remainingTriesLabel.translatesAutoresizingMaskIntoConstraints = false
         remainingTriesLabel.textAlignment = .right
         remainingTriesLabel.text = "Remaining Tries: 7"
+        remainingTriesLabel.font = UIFont.systemFont(ofSize: 24)
         view.addSubview(remainingTriesLabel)
         
         word = UILabel()
         word.translatesAutoresizingMaskIntoConstraints = false
         word.textAlignment = .center
-        word.font = UIFont.systemFont(ofSize: 30)
+        word.font = UIFont.systemFont(ofSize: 60)
         view.addSubview(word)
         
         let buttonsView = UIView()
@@ -58,7 +69,9 @@ class ViewController: UIViewController {
                 letterButton.titleLabel?.font = UIFont.systemFont(ofSize: 30)
                 letterButton.setTitle(alphabetArray[index], for: .normal)
                 letterButton.layer.borderWidth = 1
-                letterButton.layer.borderColor = UIColor.blue.cgColor
+                letterButton.layer.borderColor = UIColor.darkGray.cgColor
+                letterButton.backgroundColor = UIColor.white
+                letterButton.setTitleColor(.darkGray, for: .normal)
                 letterButton.addTarget(self, action: #selector(letterTapped), for: .touchUpInside)
                 
                 let frame = CGRect(x: column * width, y: row * height, width: width, height: height)
@@ -73,42 +86,107 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setLevels()
         loadLevel()
     }
 
     @objc func letterTapped(_ sender: UIButton) {
         guard let buttonTitle = sender.titleLabel?.text else { return }
         
-        print(buttonTitle)
-        // search the chosen word for a match with the button title
+        let currentSolution = word.text
+        var newSolution = ""
+        
+        calledLetters.append(buttonTitle)
+        
+        // replace question marks with correctly guessed letters
+        for letter in currentWord {
+            let strLetter = String(letter)
+            
+            if calledLetters.contains(strLetter) {
+                newSolution += strLetter
+            } else {
+                newSolution += "?"
+            }
+        }
+        
+        // incorrect guesses take away points or ends the game
+        if currentSolution == newSolution {
+            incorrectGuesses -= 1
+            
+            if incorrectGuesses < 0 {
+                let ac = UIAlertController(title: "Sorry, you're out of guesses", message: "The word was \(currentWord)", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "Try again", style: .default, handler: restartGame))
+                present(ac, animated: true)
+            }
+        }
+        
+        word.text = newSolution
+
+        // check if all question marks have been successfully replaced and move to the next level
+        if !newSolution.contains("?") {
+            let ac = UIAlertController(title: "Congratulations! You won!", message: nil, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Next level", style: .default, handler: levelUp))
+            present(ac, animated: true)
+        }
         
         sender.isHidden = true
     }
-
-    func loadLevel() {
-        var wordsArray = [String]()
-        
+    
+    func setLevels() {
         let file = "levels"
-        DispatchQueue.global().async {
+        DispatchQueue.global().async { [weak self] in
             if let filepath = Bundle.main.path(forResource: file, ofType: "txt") {
                 do {
                     let contents = try String(contentsOfFile: filepath)
                     var words = contents.components(separatedBy: "|")
                     words.shuffle()
-                    wordsArray = words
+                    self?.wordsArray = words
                 } catch {
-                    print("error with contents")
+                    print("error with file contents")
                 }
             } else {
                 print("no path")
             }
         }
-        
+    }
+
+    func loadLevel() {
         DispatchQueue.main.async { [weak self] in
-            let chosenWord = wordsArray[0].trimmingCharacters(in: .whitespacesAndNewlines)
-            print(chosenWord)
-            let hiddenString = String(chosenWord.map { _ in Character("?")})
+            self?.currentWord = self!.wordsArray[self!.levelIndex].trimmingCharacters(in: .whitespacesAndNewlines)
+            let hiddenString = String(self!.currentWord.map { _ in Character("?")})
             self?.word.text = hiddenString
+        }
+    }
+    
+    func levelUp(action: UIAlertAction) {
+        levelIndex += 1
+        incorrectGuesses = 7
+        
+        // if the last level was completed, restart the game
+        if levelIndex >= wordsArray.count {
+            levelIndex = 0
+            setLevels()
+        }
+        
+        loadLevel()
+            
+        refreshBoard()
+    }
+    
+    func restartGame(action: UIAlertAction) {
+        incorrectGuesses = 7
+        
+        setLevels()
+        loadLevel()
+        
+        refreshBoard()
+    }
+    
+    func refreshBoard() {
+        calledLetters = []
+        
+        for button in letterButtons {
+            button.isHidden = false
         }
     }
 }
